@@ -2,8 +2,9 @@ public class RqTest {
 
     public static void main(String[] args) {
 //        testActionName();
-        testGetParamEx2();
+//        testGetParamEx2();
 //        testGetParamEx3();
+        testGetParamAsInt();
     }
 
     public static void testActionName(){
@@ -49,6 +50,16 @@ public class RqTest {
         String keyword = rq.getParam("keyword", ""); // ""
         System.out.println(searchKeyword); //""
         System.out.println(keyword); //"kkk"
+    }
+
+    public static void testGetParamAsInt(){
+        Rq rq1 = new Rq("삭제?id=3");
+        int id1 = rq1.getParamAsInt("id", -1); // -1
+        System.out.println((id1)); //-1
+
+        Rq rq2 = new Rq("삭제?id=");
+        int id2 = rq2.getParamAsInt("id", -1); // -1
+        System.out.println((id2)); //-1
     }
 
 

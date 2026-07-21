@@ -39,4 +39,15 @@ public class Rq {
 
         return rst;
     }
+
+    public int getParamAsInt(String key, int defaultValue){
+        String rst = getParam(key, "");
+
+        try{
+            return Integer.parseInt(rst);
+        }catch (NumberFormatException e){
+            System.out.println("잘못된 입력값을 넣어서 기본값으로 반환됩니다.");
+            return defaultValue;
+        }
+    }
 }
