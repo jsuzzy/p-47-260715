@@ -1,9 +1,10 @@
 public class RqTest {
 
     public static void main(String[] args) {
-//        testActionName();
-//        testGetParamEx2();
-//        testGetParamEx3();
+        testActionName();
+        testGetParam();
+        testGetParamEx2();
+        testGetParamEx3();
         testGetParamAsInt();
     }
 

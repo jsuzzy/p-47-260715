@@ -1,33 +1,32 @@
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Rq {
-    private String cmd;
-    String actionName;
-    Map<String, String> paramMap = new HashMap<>();
 
-    public Rq(String cmd) {
-        this.cmd = cmd;
+    private Map<String, String> paramMap;
+    private String actionName;
 
-        //키, 밸류 저장 전용 자료구조 -> map
-        //목록?keywordType=content&keyword=과거
-        String[] cmdBits = cmd.split("\\?"); //["목록", "keywordType=content&keyword=과거"]
-        actionName = cmdBits[0];
-        String params = cmdBits.length > 1 ? cmdBits[1] : "";
+    public Rq(String command) {
+        paramMap = new HashMap<>();
 
-        if (params.equals("")) {
-            return;
-        }
+        String[] commandBits = command.split("\\?");
 
-        String[] paramBits = params.split("&"); //["keywordType=content","keyword=과거"]
+        actionName = commandBits[0];
+        String queryString = commandBits.length > 1 ? commandBits[1] : "";
 
-        for (String param : paramBits) {
-            String[] keyValue = param.split("=");
-            if(keyValue.length < 2){
-                continue;
-            }
-            paramMap.put(keyValue[0], keyValue[1]);
-        }
+        String[] queryStringBits = queryString.split("&");
+
+        paramMap = Arrays.stream(queryStringBits) // key1=value1, key2=value2 ...
+                .map(part -> part.split("="))
+                .filter(bits -> bits.length == 2 && bits[0] != null && bits[1] != null)// [key1, value1]
+                .collect(
+                        Collectors.toMap(
+                                bits -> bits[0],
+                                bits -> bits[1]
+                        )
+                );
     }
 
     public String getActionName() {
@@ -35,19 +34,16 @@ public class Rq {
     }
 
     public String getParam(String key, String defaultValue) {
-        String rst = paramMap.getOrDefault(key, defaultValue);
-
-        return rst;
+        return paramMap.getOrDefault(key, defaultValue);
     }
 
-    public int getParamAsInt(String key, int defaultValue){
-        String rst = getParam(key, "");
+    public int getParamAsInt(String key, int defaultValue) {
+        String value = getParam(key, null);
 
-        try{
-            return Integer.parseInt(rst);
-        }catch (NumberFormatException e){
-            System.out.println("잘못된 입력값을 넣어서 기본값으로 반환됩니다.");
+        if (value == null) {
             return defaultValue;
         }
+
+        return Integer.parseInt(value);
     }
 }
