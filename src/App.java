@@ -6,8 +6,8 @@ public class App {
 
     Scanner sc = new Scanner(System.in);
     int lastId = 0; // 가장 최근 생성된 명언 번호. 번호 관리
-//    int lastIndex = 0; // 가장 최근 생성된 명언의 배열 인덱스. 배열 관리
-    ArrayList<WiseSaying>  wiseSayings = new ArrayList<>();
+    //    int lastIndex = 0; // 가장 최근 생성된 명언의 배열 인덱스. 배열 관리
+    ArrayList<WiseSaying> wiseSayings = new ArrayList<>();
 
     public void run() {
 
@@ -20,28 +20,24 @@ public class App {
 
             if (cmd.equals("등록")) {
                 actionWrite(); // mac : option + enter, win : alt + enter
-            }
-            else if (cmd.equals("목록")) {
+            } else if (cmd.equals("목록")) {
                 actionList();
-            }
-            else if (cmd.startsWith("삭제")) {
+            } else if (cmd.startsWith("삭제")) {
                 actionDelete(cmd);
-            }
-            else if (cmd.startsWith("수정")) {
+            } else if (cmd.startsWith("수정")) {
                 actionModify(cmd);
 
             }
         }
     }
 
-    public int findIndexById(int id){
+    public int findIndexById(int id) {
         int targetIdx = -1;
 
-        return IntStream.range(0,wiseSayings.size())
+        return IntStream.range(0, wiseSayings.size())
                 .filter(i -> wiseSayings.get(i).getId() == id)
                 .findFirst()
                 .orElse(-1);
-
 
 
 //        for(int i = 0; i < wiseSayings.size(); i++) {
@@ -52,7 +48,7 @@ public class App {
 //            }
 //        }
 
-        return -1;
+//        return -1;
     }
 
     private void actionModify(String cmd) {
@@ -62,7 +58,7 @@ public class App {
         //변하는 부분을 변하지 않는 부분에서 분리해라
         int targetIdx = findIndexById(id);
 
-        if(targetIdx == -1){
+        if (targetIdx == -1) {
             System.out.println("%d번 명언은 존재하지 않습니다.".formatted(id));
             return;
         }
@@ -70,12 +66,12 @@ public class App {
         //수정 로직
         WiseSaying wiseSaying = wiseSayings.get(targetIdx);
 
-        System.out.println("명언(기존): %s".formatted(wiseSaying.getContent()) );
+        System.out.println("명언(기존): %s".formatted(wiseSaying.getContent()));
         System.out.print("명언 : ");
         String content = sc.nextLine();
         wiseSaying.setContent(content);
 
-        System.out.println("작가(기존): %s".formatted(wiseSaying.getContent()) );
+        System.out.println("작가(기존): %s".formatted(wiseSaying.getContent()));
         System.out.print("작가 : ");
         String author = sc.nextLine();
         wiseSaying.setAuthor(author);
@@ -91,14 +87,20 @@ public class App {
         String strId = cmd.substring(cmd.indexOf("=") + 1).trim();
         int id = Integer.parseInt(strId);
 
-        int targetIdx = findIndexById(id);
+//        int targetIdx = findIndexById(id);
+//
+//        if(targetIdx == -1){
+//            System.out.println("%d번 명언은 존재하지 않습니다.".formatted(id));
+//            return;
+//        }
+//
+//        wiseSayings.remove(targetIdx);
 
-        if(targetIdx == -1){
+        boolean rst = wiseSayings.removeIf(wiseSaying -> wiseSaying.getId() == id);
+
+        if (!rst) {
             System.out.println("%d번 명언은 존재하지 않습니다.".formatted(id));
-            return;
         }
-
-        wiseSayings.remove(targetIdx);
     }
 
     private void actionList() {
