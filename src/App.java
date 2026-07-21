@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 public class App {
 
@@ -36,13 +37,20 @@ public class App {
     public int findIndexById(int id){
         int targetIdx = -1;
 
-        for(int i = 0; i < wiseSayings.size(); i++) {
-            WiseSaying w1 = wiseSayings.get(i);
-            if(w1.getId() == id) {
-                targetIdx = i;
-                return i;
-            }
-        }
+        return IntStream.range(0,wiseSayings.size())
+                .filter(i -> wiseSayings.get(i).getId() == id)
+                .findFirst()
+                .orElse(-1);
+
+
+
+//        for(int i = 0; i < wiseSayings.size(); i++) {
+//            WiseSaying w1 = wiseSayings.get(i);
+//            if(w1.getId() == id) {
+//                targetIdx = i;
+//                return i;
+//            }
+//        }
 
         return -1;
     }
