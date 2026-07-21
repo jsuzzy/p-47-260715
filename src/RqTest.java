@@ -1,17 +1,19 @@
 public class RqTest {
 
     public static void main(String[] args) {
-        testGetParam();
+        testActionName();
+//        testGetParamEx3();
     }
 
     public static void testActionName(){
         Rq rq1 = new Rq("삭제?id=1");
-        String action = rq1.getActionName(); //삭제
+        String action = rq1.getActionName();
+        System.out.println(action); //삭제
 
 
         Rq rq2 = new Rq("수정?id=1");
-
-        rq2.getActionName(); //수정
+        String action2 = rq2.getActionName();
+        System.out.println(action2); //수정
     }
 
     public static void testGetParam(){
@@ -26,6 +28,26 @@ public class RqTest {
         Rq rq3 = new Rq("목록?keywordType=author"); //key=value
         String keywordType2 = rq3.getParam("keywordType", ""); // author
         System.out.println(keywordType2);
+    }
+
+    public static void testGetParamEx(){
+        Rq rq = new Rq("목록?"); //key=value
+        String searchKeyword = rq.getParam("searchKeyword", ""); // ""
+        System.out.println(searchKeyword);
+    }
+
+    public static void testGetParamEx2(){
+        Rq rq = new Rq("목록?searchKeyword="); //key=value
+        String searchKeyword = rq.getParam("searchKeyword", ""); // ""
+        System.out.println(searchKeyword);
+    }
+
+    public static void testGetParamEx3(){
+        Rq rq = new Rq("목록?searchKeyword&keyword=kkk"); //key=value
+        String searchKeyword = rq.getParam("searchKeyword", ""); // ""
+        String keyword = rq.getParam("keyword", ""); // ""
+        System.out.println(searchKeyword); //""
+        System.out.println(keyword); //"kkk"
     }
 
 
