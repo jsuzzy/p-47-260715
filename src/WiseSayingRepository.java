@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -27,8 +28,11 @@ public class WiseSayingRepository {
         if(wiseSaying.isNew()){
             ++lastId;
             wiseSaying.setId(lastId);
+            wiseSaying.setCreateDate(LocalDateTime.now());
+            wiseSaying.setModifyDate(LocalDateTime.now());
             wiseSayings.add(wiseSaying);
         }
+            wiseSaying.setModifyDate(LocalDateTime.now());
 
         return wiseSaying; //저장한 걸 다시 반환하는 게 관례임
     }
