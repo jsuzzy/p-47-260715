@@ -1,35 +1,17 @@
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class WiseSayingService {
-    int lastId = 0; // 가장 최근 생성된 명언 번호. 번호 관리
-    ArrayList<WiseSaying> wiseSayings = new ArrayList<>();
+    WiseSayingRepository wiseSayingRepository = new WiseSayingRepository();
 
-    public int findIndexById(int id) {
-        int targetIdx = -1;
-
-        return IntStream.range(0, wiseSayings.size())
-                .filter(i -> wiseSayings.get(i).getId() == id)
-                .findFirst()
-                .orElse(-1);
-
-    }
 
     public WiseSaying findById(int id){
-        int idx = findIndexById(id);
-        if(idx == -1){
-            return null;
-        }
-
-        return wiseSayings.get(idx);
+        return wiseSayingRepository.findById(id);
     }
 
     public WiseSaying write(String content, String author) {
-        ++lastId;
-        WiseSaying w1 = new WiseSaying(lastId, content, author);
-        wiseSayings.add(w1);
-//        ++lastIndex;
+
+        WiseSaying w1 = new WiseSaying(content, author);
+        w1 = wiseSayingRepository.save(w1);
 
         return w1;
     }
@@ -40,12 +22,12 @@ public class WiseSayingService {
     }
 
     public boolean delete(int id){
-        boolean rst = wiseSayings.removeIf(wiseSaying -> wiseSaying.getId() == id);
+        boolean rst = wiseSayingRepository.delete(id);
         return rst;
     }
 
     public List<WiseSaying> findAllIdDesc(){
-        return wiseSayings.reversed();
+        return wiseSayingRepository.findAllIdDesc();
     }
 
 }
