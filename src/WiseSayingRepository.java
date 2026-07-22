@@ -24,11 +24,17 @@ public class WiseSayingRepository {
     }
 
     public WiseSaying save(WiseSaying wiseSaying){
-        ++lastId;
-        wiseSaying.setId(lastId);
-        wiseSayings.add(wiseSaying);
+        if(wiseSaying.isNew()){
+            ++lastId;
+            wiseSaying.setId(lastId);
+            wiseSayings.add(wiseSaying);
+        }
 
         return wiseSaying; //저장한 걸 다시 반환하는 게 관례임
+    }
+
+    public void modify(WiseSaying wiseSaying){
+        //
     }
 
     public boolean delete(int id){

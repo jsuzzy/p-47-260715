@@ -9,7 +9,6 @@ public class WiseSayingController {
         String strId = cmd.substring(cmd.indexOf("=") + 1).trim();
         int id = Integer.parseInt(strId);
 
-        //변하는 부분을 변하지 않는 부분에서 분리해라
         WiseSaying wiseSaying = wiseSayingService.findById(id);
 
         if (wiseSaying == null) {

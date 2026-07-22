@@ -19,6 +19,9 @@ public class WiseSayingService {
     public void modify(WiseSaying wiseSaying, String content, String author){
         wiseSaying.setContent(content);
         wiseSaying.setAuthor(author);
+
+        //저장을 해야 한다.
+        wiseSayingRepository.save(wiseSaying);
     }
 
     public boolean delete(int id){
