@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class App {
 
     Scanner sc = new Scanner(System.in);
-    WiseSayingController wiseSayingController = new WiseSayingController();
+    WiseSayingController wiseSayingController = AppContext.wiseSayingController;
 
 
     public void run() {

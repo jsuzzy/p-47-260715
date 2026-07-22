@@ -2,8 +2,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class WiseSayingController {
-    Scanner sc = new Scanner(System.in);
-    WiseSayingService wiseSayingService = new WiseSayingService();
+    Scanner sc = AppContext.sc;
+    WiseSayingService wiseSayingService = AppContext.wiseSayingService;
 
     public void actionModify(String cmd) {
         String strId = cmd.substring(cmd.indexOf("=") + 1).trim();

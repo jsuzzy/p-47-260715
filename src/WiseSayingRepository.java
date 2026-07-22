@@ -29,7 +29,6 @@ public class WiseSayingRepository {
             ++lastId;
             wiseSaying.setId(lastId);
             wiseSaying.setCreateDate(LocalDateTime.now());
-            wiseSaying.setModifyDate(LocalDateTime.now());
             wiseSayings.add(wiseSaying);
         }
             wiseSaying.setModifyDate(LocalDateTime.now());
